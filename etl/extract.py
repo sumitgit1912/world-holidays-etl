@@ -65,21 +65,11 @@ def scrape_all_holidays():
     columns = ['country', 'iso2_code', 'holiday', 'date', 'detail']
     return pd.DataFrame(all_holidays, columns=columns)
 
-def save_to_file(df, filename, file_format):
-    """Save the DataFrame to a file in CSV or Excel format."""
-    if file_format == 'csv':
-        df.to_csv(filename, index=False)
-    elif file_format == 'excel':
-        df.to_excel(filename, index=False)
+def save_to_file(df, filename):
+    df.to_excel(filename, index=False)
     print(f"Saved to {filename}")
 
-# if __name__ == "__main__":
-parser = argparse.ArgumentParser(description="Scrape worldwide holidays from calendarific.com")
-parser.add_argument("--format", choices=['csv', 'excel'], default='csv', help="Output file format")
-parser.add_argument("--output", default="extracted_holidays", help="Output filename without extension")
-args = parser.parse_args()
-
 df = scrape_all_holidays()
 df = scrape_all_holidays()
-filename = f"data/{args.output}.{'csv' if args.format == 'csv' else 'xlsx'}"
-save_to_file(df, filename, args.format)
+filename = "data/extracted_holidays.xlsx"
+save_to_file(df, filename)
